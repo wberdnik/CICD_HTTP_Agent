@@ -52,6 +52,8 @@ docker load image.file
 
 ```
 
+* See ```go internal/config/config.go``` file
+
 ## License
 
 © Morph, 2024~time.Now

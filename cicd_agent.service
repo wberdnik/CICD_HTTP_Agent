@@ -1,0 +1,18 @@
+# Yur.ist site systemd service file
+
+[Unit]
+Description=Cicd http deploy agent
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+PermissionsStartOnly=true
+WorkingDirectory=/opt/cicd_agent
+ExecStart=/opt/cicd_agent/cicd_agent
+TimeoutSec=infinity
+Restart=on-failure
