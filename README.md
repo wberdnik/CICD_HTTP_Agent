@@ -17,7 +17,7 @@ The convenient agent for continuous delivery and deployment to your servers.
 * A CI/CD pipeline just run a script bellow after build JS assets, Docker image, e.t.c.
   
 ```sh
-curl --location 'httpS://Login:Pass@YourDomain/YourNativeToken?project=YourProject' --form 'file=@"pathToFileOnBuildServer/deployArchiveFileName"'
+curl --location 'httpS://Login:${{ secrets.DEPLOY_PASS }}@YourDomain/YourNativeToken?project=YourProject' --form 'file=@"pathToFileOnBuildServer/deployArchiveFileName"'
 ```
 
 *  A nginx configuration file can consist parts like this
