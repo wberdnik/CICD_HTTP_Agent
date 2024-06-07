@@ -1,4 +1,4 @@
-## CICD_HTTP_Agent
+## CI/CD HTTP Agent
 The convenient agent for continuous delivery and deployment to your servers.
 
 ## Overview
@@ -8,21 +8,22 @@ The convenient agent for continuous delivery and deployment to your servers.
 * Run a custom bash script after upload file
 * Return stdout of bash script to CI/CD system
 * Multiple projects per server
-* Security is primarily provided by NGINX 
+* Security is primarily provided by NGINX
+* Allow to opt out Cloud Buckets services, Docker Registry, e.t.c
 
 
 ## Getting Started
 
-* A CI/CD pipeline just run
+* A CI/CD pipeline just run a script bellow after build JS assets, Docker image, e.t.c.
   
-```
-curl --location 'httpS://YourDomain/YourNativeToken?project=YourProject' --form 'file=@"pathToFile/deployArchiveFileName"'
+```sh
+curl --location 'httpS://Login:Pass@YourDomain/YourNativeToken?project=YourProject' --form 'file=@"pathToFileOnBuildServer/deployArchiveFileName"'
 ```
 
-* after build JS assets, Docker image, e.t.c. A nginx configuration can consist parts like
+*  A nginx configuration file can consist parts like this
   
-  ```
-  location = /FooBarToken {
+  ```conf
+  location = /YourNativeToken {
             auth_basic "Restricted area";
             auth_basic_user_file /etc/nginx/foo_bar_pass;
             proxy_pass http://127.0.0.1:9777;
@@ -36,8 +37,20 @@ curl --location 'httpS://YourDomain/YourNativeToken?project=YourProject' --form 
  ssl_certificate_key /etc/path_key/privkey.pem;
 
   ```
+* The custom bash script file is stored in ```/etc/cicd_agent``` folder.
+```sh
+#!/bin/bash
+# /etc/cicd_agent/YourProject.sh (must be executable)
 
+cd workspace_directory
+tar -xzf $1
+cp foobar.file web_directory
+# or
+docker load image.file
 
+***
+
+```
 
 ## License
 
