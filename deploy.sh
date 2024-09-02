@@ -19,9 +19,12 @@ chown -R root:root /opt/go
 
 fi
 
+echo "Start go build"
 /opt/go/bin/go mod tidy 
 /opt/go/bin/go build -o ./cicd_agent ./cmd/cicd_agent
+echo "End go build"
 
+ls -lah
 
 mkdir -p /opt/cicd_agent
 mv ./cicd_agent /opt/cicd_agent
